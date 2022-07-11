@@ -1,0 +1,31 @@
+{
+  "name": "image-builder",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "ts-node-dev --poll src/index.ts",
+    "build": "rimraf ./dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaky-infra/image-builder.git"
+  },
+  "keywords": [],
+  "author": "Salvatore Fasano",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/flaky-infra/image-builder/issues"
+  },
+  "homepage": "https://github.com/flaky-infra/image-builder#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.1",
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@typegoose/typegoose": "^9.10.1",
+    "mongoose": "^6.4.3"
+  }
+}
