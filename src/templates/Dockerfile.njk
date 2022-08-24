@@ -1,0 +1,17 @@
+FROM 172.16.97.200:8123/flaky-runner-wrapper:latest as testRunner
+
+FROM {{imageName}}
+COPY --from=testRunner /app/main /workspace/main
+{% if buildTool == "gradle" %}
+ENV JAVA_HOME=/workspace/.jdk
+ENV GRADLE_HOME=/workspace/.gradle
+RUN test -f gradlew
+{% else %}
+ENV JAVA_HOME=/layers/heroku_jvm/openjdk/
+ENV PATH=/layers/heroku_maven/maven/bin/:$PATH
+RUN mvn wrapper:wrapper || true
+RUN ./mvnw install -Dmaven.test.skip
+{% endif %}
+ENV FLAKY_TEST_RUN_CMD=/cnb/process/web
+ENV APP_PATH=/workspace
+ENTRYPOINT ["/app/main"]
