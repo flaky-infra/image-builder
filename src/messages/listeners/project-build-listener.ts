@@ -49,7 +49,9 @@ export class ProjectBuildListener extends Listener<ProjectBuildEvent> {
         `pack build ${name}:${commitId.substring(
           commitId.length - 7
         )}-notr --path ${projectPath} --builder heroku/buildpacks:20 ${
-          buildTool === 'gradle' ? '-e GRADLE_TASK="clean build -x test"' : ''
+          buildTool === 'gradle'
+            ? '-e GRADLE_TASK="clean build -x test"'
+            : '-e MAVEN_CUSTOM_OPTS="-DskipTests -Drat.skip -Dcheckstyle.skip -Dgpg.skip"'
         }`
       );
       project.logStdoutBuildpack = buildpacksStdout;
